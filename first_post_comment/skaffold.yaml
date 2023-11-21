@@ -1,0 +1,57 @@
+apiVersion: skaffold/v4beta3
+kind: Config
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: minkj1992/client-99
+      context: client
+      sync:
+        manual:
+          - src: src/**/*.js
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: minkj1992/comments-84
+      context: comments
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: minkj1992/event-bus-89
+      context: event-bus
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: minkj1992/moderation-84
+      context: moderation
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: minkj1992/posts-100
+      context: posts
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: minkj1992/query-84
+      context: query
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+      docker:
+        dockerfile: Dockerfile
